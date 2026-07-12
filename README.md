@@ -1,4 +1,4 @@
-# DR_DPPO — Entropic Risk Reweighting for Domain Randomization
+# Tail-Risk-Aware Domain Randomization
 
 Minimal demo of iterative **Entropic Risk Reweighting** for Domain Randomization (DR) in reinforcement learning. A quadrotor hover task simulated with the [Genesis](https://github.com/Genesis-Embodied-AI/Genesis) GPU physics engine, trained with PPO.
 
@@ -13,15 +13,6 @@ q(θ) ∝ exp(−β · R(θ))
 
 that up-weights low-reward (hard) parameter regions. A **dual variable β** is updated via dual ascent to keep KL(q || uniform) near a target value, preventing distribution collapse.
 
-## File Structure
-
-```
-minimal_demo/
-├── hover_env.py      # Quadrotor hover environment with GPU-parallel simulation
-├── hover_train.py    # PPO config, Entropic Risk Reweighting core, training loops
-├── run.py            # Entry point (baseline or iterative training)
-└── README.md
-```
 
 ## Dependencies
 
