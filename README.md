@@ -47,16 +47,7 @@ python run.py --rounds 10 --iters_per_round 50 --num_envs 4096
 | `--target_kl` | 2.0 | Target KL divergence for dual β update |
 
 ## DR Parameters
-
-8 dynamics parameters are randomized within these ranges:
-
-| Parameter | Range |
-|-----------|-------|
-| Mass scale | [0.7, 1.3] |
-| Inertia (Ixx, Iyy) | [0.7, 1.3] |
-| Center-of-mass shift (x, y, z) | [-0.008, 0.008] m |
-| Thrust coefficient | [0.7, 1.3] |
-| Turbulence wind | Enabled |
+Multiple dynamics parameters are randomized over predefined ranges, including mass, inertia, center-of-mass offset, thrust coefficient, and turbulence wind disturbance.
 
 ## Output
 
