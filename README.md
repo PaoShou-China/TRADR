@@ -66,7 +66,7 @@ The small run is for checking basic setup and output flow; it is not a performan
 | `--episodes_per_eval` | 15 | Episodes per evaluation parameter point |
 | `--target_kl` | 2.0 | Target KL for the dual-β update |
 
-The default iterative run evaluates 10,000 parameter points for 15 episodes per point after each round; this can be computationally expensive. The CLI currently exposes `target_kl`; β learning rate and ESS safeguards remain defined in the training implementation.
+The default iterative run evaluates 10,000 parameter points for 15 episodes per point after each round; this can be computationally expensive. `tradr_config.py` owns the CLI defaults and validates positive environment, iteration, and evaluation counts before the training stack is imported. β learning rate and ESS safeguards remain defined in the training implementation.
 
 ## Outputs
 
