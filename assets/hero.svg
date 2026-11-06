@@ -29,7 +29,7 @@
  <circle cx="125" cy="335" r="4"/><circle cx="153" cy="335" r="4"/><circle cx="181" cy="335" r="4"/><circle cx="209" cy="335" r="4"/><circle cx="237" cy="335" r="4"/><circle cx="265" cy="335" r="4"/><circle cx="293" cy="335" r="4"/>
  <circle cx="125" cy="365" r="4"/><circle cx="153" cy="365" r="4"/><circle cx="181" cy="365" r="4"/><circle cx="209" cy="365" r="4"/><circle cx="237" cy="365" r="4"/><circle cx="265" cy="365" r="4"/><circle cx="293" cy="365" r="4"/>
 </g>
-<text x="213" y="414" text-anchor="middle" class="tiny muted">θ₁: mass · inertia · COM · thrust · wind</text>
+<text x="213" y="414" text-anchor="middle" class="tiny muted">θ: mass · inertia · COM · thrust coefficient · turbulence</text>
 <text x="87" y="300" transform="rotate(-90 87 300)" text-anchor="middle" class="tiny muted">θ₂</text>
 
 <path d="M390 280H429" class="flow"/>
