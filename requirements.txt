@@ -1,0 +1,6 @@
+# Install a CUDA-compatible PyTorch build separately; see README.md.
+# Genesis and rsl_rl should be installed from compatible releases.
+genesis-world
+rsl-rl-lib
+tensordict
+numpy
