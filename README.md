@@ -1,5 +1,13 @@
 # Tail-Risk-Aware Domain Randomization
 
+<div align="center">
+  <img src="assets/hero.svg" alt="TRADR project illustration: quadrotor hover over a risk-weighted parameter landscape" width="100%">
+</div>
+
+**[Project homepage](https://paoshou-china.github.io/TRADR/)** · [Quick start](#usage) · [Method](#core-idea)
+
+
+
 Minimal demo of iterative **Entropic Risk Reweighting** for domain randomization (DR) in a quadrotor hover task. It uses Genesis for GPU-parallel simulation and `rsl_rl` for PPO.
 
 ## Core idea
