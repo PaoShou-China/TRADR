@@ -58,13 +58,13 @@ The small run is for checking basic setup and output flow; it is not a performan
 |---|---:|---|
 | `mode` | `iterative` | `baseline` or `iterative` |
 | `--num_envs` | 2048 | Parallel training environments |
-| `--seed` | 1 | Training seed |
+| `--seed` | 1 | Training seed (`0` to `4294967295`) |
 | `--max_iters` | 1000 | Baseline PPO iterations |
 | `--rounds` | 20 | Iterative training rounds |
 | `--iters_per_round` | 50 | PPO iterations in each iterative round |
 | `--eval_envs` | 10000 | Evaluation parameter grid size |
 | `--episodes_per_eval` | 15 | Episodes per evaluation parameter point |
-| `--target_kl` | 2.0 | Target KL for the dual-β update |
+| `--target_kl` | 2.0 | Finite positive target KL for the dual-β update |
 
 The default iterative run evaluates 10,000 parameter points for 15 episodes per point after each round; this can be computationally expensive. `tradr_config.py` owns the CLI defaults and validates positive environment, iteration, and evaluation counts before the training stack is imported. β learning rate and ESS safeguards remain defined in the training implementation.
 
