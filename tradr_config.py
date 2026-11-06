@@ -34,7 +34,7 @@ class RunConfig:
                     raise ValueError("seed must be between 0 and 4294967295")
             elif value <= 0:
                 raise ValueError(f"{name.replace('_', '-')} must be a positive integer")
-        if not isinstance(self.target_kl, (int, float)) or not math.isfinite(self.target_kl) or self.target_kl <= 0:
+        if isinstance(self.target_kl, bool) or not isinstance(self.target_kl, (int, float)) or not math.isfinite(self.target_kl) or self.target_kl <= 0:
             raise ValueError("target-kl must be a finite positive number")
         return self
 
