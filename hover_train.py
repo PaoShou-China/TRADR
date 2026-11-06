@@ -132,11 +132,15 @@ def evaluate_on_param_grid(env, policy, episodes_per_env=1):
             cumulative += rews
 
             done_envs = dones.nonzero(as_tuple=False).reshape(-1)
-            for idx in done_envs:
-                idx_i = idx.item()
-                env_reward_sums[idx_i].append(cumulative[idx].item())
-                cumulative[idx] = 0.0
-                done_count[idx] += 1
+            if done_envs.numel() > 0:
+                # Transfer the completed batch once instead of synchronizing
+                # separately for every environment via Tensor.item().
+                done_envs_cpu = done_envs.cpu().tolist()
+                completed_rewards = cumulative[done_envs].cpu().tolist()
+                for idx_i, reward in zip(done_envs_cpu, completed_rewards):
+                    env_reward_sums[idx_i].append(reward)
+                cumulative[done_envs] = 0.0
+                done_count[done_envs] += 1
 
             if (done_count >= episodes_per_env).all():
                 break
@@ -173,26 +177,37 @@ def evaluate_with_trajectory(env, policy, episodes_per_env=1, record_envs=8, max
             cumulative += rews
             step += 1
 
+            # Snapshot recorded environments in batches: many small
+            # per-env .cpu() calls otherwise synchronize the GPU repeatedly.
+            snapshots = {
+                "base_pos": env.base_pos[:record_envs].cpu(),
+                "base_euler": env.base_euler[:record_envs].cpu(),
+                "commands": env.commands[:record_envs].cpu(),
+                "actions": env.actions[:record_envs].cpu(),
+                "base_lin_vel": env.base_lin_vel[:record_envs].cpu(),
+                "base_ang_vel": env.base_ang_vel[:record_envs].cpu(),
+                "rewards": rews[:record_envs].cpu(),
+                "dones": dones[:record_envs].cpu(),
+            }
+            done_values = snapshots["dones"].tolist()
             for j in range(record_envs):
                 if not traj_active[j]:
                     continue
-                traj[j]["base_pos"].append(env.base_pos[j].cpu().clone())
-                traj[j]["base_euler"].append(env.base_euler[j].cpu().clone())
-                traj[j]["commands"].append(env.commands[j].cpu().clone())
-                traj[j]["actions"].append(env.actions[j].cpu().clone())
-                traj[j]["base_lin_vel"].append(env.base_lin_vel[j].cpu().clone())
-                traj[j]["base_ang_vel"].append(env.base_ang_vel[j].cpu().clone())
-                traj[j]["rewards"].append(rews[j].cpu().clone())
-                traj[j]["dones"].append(dones[j].cpu().clone())
-                if dones[j]:
+                for key, values in snapshots.items():
+                    traj[j][key].append(values[j].clone())
+                if done_values[j]:
                     traj_active[j] = False
 
             done_envs = dones.nonzero(as_tuple=False).reshape(-1)
-            for idx in done_envs:
-                idx_i = idx.item()
-                env_reward_sums[idx_i].append(cumulative[idx].item())
-                cumulative[idx] = 0.0
-                done_count[idx] += 1
+            if done_envs.numel() > 0:
+                # Transfer the completed batch once instead of synchronizing
+                # separately for every environment via Tensor.item().
+                done_envs_cpu = done_envs.cpu().tolist()
+                completed_rewards = cumulative[done_envs].cpu().tolist()
+                for idx_i, reward in zip(done_envs_cpu, completed_rewards):
+                    env_reward_sums[idx_i].append(reward)
+                cumulative[done_envs] = 0.0
+                done_count[done_envs] += 1
 
             if (done_count >= episodes_per_env).all():
                 break
