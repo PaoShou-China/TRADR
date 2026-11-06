@@ -1,7 +1,7 @@
 # Tail-Risk-Aware Domain Randomization
 
 <div align="center">
-  <img src="assets/hero.svg" alt="Conceptual entropic-risk reweighting diagram with uniform parameter samples, policy returns, and hard-case sampling; not measured data." width="100%">
+  <img src="assets/hero.svg" alt="Conceptual method schematic: parameter sampling, policy return evaluation, exponential risk reweighting, and KL-controlled beta update; no measured data shown." width="100%">
 </div>
 
 **[Project homepage](https://paoshou-china.github.io/TRADR/)** · [Quick start](#usage) · [Method](#core-idea)
